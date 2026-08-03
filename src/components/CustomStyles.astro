@@ -1,0 +1,286 @@
+---
+import '@fontsource/ibm-plex-sans/latin-400.css';
+import '@fontsource/ibm-plex-sans/latin-500.css';
+import '@fontsource/ibm-plex-sans/latin-600.css';
+import '@fontsource/ibm-plex-sans/latin-700.css';
+import '@fontsource/ibm-plex-mono/latin-400.css';
+import '@fontsource/ibm-plex-mono/latin-500.css';
+import '@fontsource/ibm-plex-mono/latin-600.css';
+---
+
+<style is:inline>
+  :root {
+    --aw-font-sans: 'IBM Plex Sans';
+    --aw-font-serif: 'IBM Plex Sans';
+    --aw-font-heading: 'IBM Plex Sans';
+    --aw-font-mono: 'IBM Plex Mono';
+
+    /* Steel blue keyed to the SLD / residual curves in the plots */
+    --aw-color-primary: rgb(35 90 151);
+    --aw-color-secondary: rgb(24 68 117);
+
+    --aw-color-text-heading: rgb(17 22 29);
+    --aw-color-text-default: rgb(41 48 58);
+    --aw-color-text-page: rgb(41 48 58);
+    --aw-color-text-muted: rgb(41 48 58 / 76%);
+    --aw-color-bg-page: rgb(250 250 249);
+
+    --aw-color-bg-page-dark: rgb(14 17 22);
+
+    ::selection {
+      background-color: rgb(35 90 151 / 20%);
+    }
+  }
+
+  .dark {
+    --aw-font-sans: 'IBM Plex Sans';
+    --aw-font-serif: 'IBM Plex Sans';
+    --aw-font-heading: 'IBM Plex Sans';
+    --aw-font-mono: 'IBM Plex Mono';
+
+    /* Bright enough for accent text/marks on graphite (button fills use a darker blue) */
+    --aw-color-primary: rgb(122 183 227);
+    --aw-color-secondary: rgb(96 165 214);
+
+    --aw-color-text-heading: rgb(240 243 246);
+    --aw-color-text-default: rgb(206 214 223);
+    --aw-color-text-page: rgb(206 214 223);
+    --aw-color-text-muted: rgb(206 214 223 / 74%);
+    --aw-color-bg-page: rgb(14 17 22);
+
+    ::selection {
+      background-color: rgb(122 183 227 / 28%);
+    }
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.02em;
+  }
+
+  .font-mono,
+  .val {
+    font-family: var(--aw-font-mono), 'IBM Plex Sans KR', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  html {
+    scroll-padding-top: 5rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  :focus-visible {
+    outline: 2px solid var(--aw-color-primary);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+
+  /* Subtle blueprint dot-grid behind the hero */
+  .reflex-hero-grid {
+    background-image: radial-gradient(rgb(120 130 140 / 13%) 1px, transparent 1px);
+    background-size: 24px 24px;
+    -webkit-mask-image: radial-gradient(115% 80% at 50% 0%, #000 28%, transparent 72%);
+    mask-image: radial-gradient(115% 80% at 50% 0%, #000 28%, transparent 72%);
+  }
+  .dark .reflex-hero-grid {
+    background-image: radial-gradient(rgb(150 160 175 / 14%) 1px, transparent 1px);
+  }
+
+  /* Hero background: XRR reflectivity datasheet drawing (neutral ink + blue data line) */
+  .reflex-hero-art {
+    color: rgb(84 96 110);
+    opacity: 0.44;
+    -webkit-mask-image: radial-gradient(120% 125% at 60% 74%, #000 40%, transparent 84%);
+    mask-image: radial-gradient(120% 125% at 60% 74%, #000 40%, transparent 84%);
+  }
+  .dark .reflex-hero-art {
+    color: rgb(150 162 176);
+    opacity: 0.52;
+  }
+
+  /* --- Instrument warm-up: motion only when html.reflex-anim is present (JS opt-in). --- */
+  /* No class = final state, so no-JS and reduced-motion render fully drawn/visible. */
+  html.reflex-anim .reflex-fringe {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  html.reflex-anim.reflex-hero-ready .reflex-fringe {
+    transition: stroke-dashoffset 1400ms cubic-bezier(0.4, 0, 0.2, 1);
+    stroke-dashoffset: 0;
+  }
+
+  html.reflex-anim [data-reveal-item] {
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
+  }
+  html.reflex-anim [data-reveal-item].is-in {
+    opacity: 1;
+    transform: none;
+  }
+  /* Largest above-the-fold text: translate only, never opacity-gated (protects LCP) */
+  html.reflex-anim [data-reveal-cell] {
+    transform: translateY(6px);
+    transition: transform 0.22s ease;
+  }
+  html.reflex-anim [data-reveal-cell].is-in {
+    transform: none;
+  }
+
+  /* Benchmark result grid inks in cell by cell */
+  html.reflex-anim [data-fill] {
+    background-color: transparent !important;
+    box-shadow: inset 0 0 0 1px rgb(120 130 140 / 45%);
+    transition:
+      background-color 0.28s ease,
+      box-shadow 0.28s ease;
+  }
+  html.reflex-anim [data-fill].is-filled {
+    background-color: var(--aw-color-primary) !important;
+    box-shadow: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.reflex-anim .reflex-fringe {
+      stroke-dashoffset: 0 !important;
+      transition: none !important;
+    }
+    html.reflex-anim [data-reveal-item],
+    html.reflex-anim [data-reveal-cell] {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    html.reflex-anim [data-fill] {
+      background-color: var(--aw-color-primary) !important;
+      box-shadow: none !important;
+      transition: none !important;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    if (window.reflex_anim) return;
+    window.reflex_anim = true;
+
+    var root = document.documentElement;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Reduced motion or no IntersectionObserver: keep the server-rendered final state.
+    if (reduce || !('IntersectionObserver' in window)) return;
+
+    // Set synchronously (in <head>, before body paints) so gated elements start hidden — no flash.
+    root.classList.add('reflex-anim');
+
+    function onReady(fn) {
+      if (document.readyState !== 'loading') fn();
+      else document.addEventListener('DOMContentLoaded', fn);
+    }
+
+    onReady(function () {
+      // 1) Hero fit-curve self-draw (above the fold → fires on first frame)
+      requestAnimationFrame(function () {
+        root.classList.add('reflex-hero-ready');
+      });
+
+      // 2) Staggered reveals within groups (+ any standalone reveal blocks)
+      var revObs = new IntersectionObserver(
+        function (entries, obs) {
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            var el = e.target;
+            if (el.hasAttribute('data-reveal')) el.classList.add('is-in');
+            var items = el.querySelectorAll('[data-reveal-item],[data-reveal-cell]');
+            items.forEach(function (c, i) {
+              c.style.transitionDelay = Math.min(i * 45, 315) + 'ms';
+              c.classList.add('is-in');
+            });
+            obs.unobserve(el);
+          });
+        },
+        { threshold: 0.15, rootMargin: '0px 0px -8% 0px' }
+      );
+      document.querySelectorAll('[data-reveal],[data-reveal-group]').forEach(function (el) {
+        revObs.observe(el);
+      });
+
+      // 3) Count-ups (numeric part + optional prefix/suffix; literal fallback)
+      function fmt(n, dec) {
+        return dec > 0 ? n.toFixed(dec) : String(Math.round(n));
+      }
+      function runCount(el) {
+        var raw = el.getAttribute('data-countup');
+        var m = raw.match(/^(\D*)(\d[\d,]*(?:\.\d+)?)(.*)$/);
+        if (!m) {
+          el.textContent = raw;
+          return;
+        }
+        var pre = m[1],
+          numStr = m[2],
+          suf = m[3];
+        var target = parseFloat(numStr.replace(/,/g, ''));
+        // A tiny count (e.g. "1-click") reads wrong mid-animation ("0-click") — print it as-is.
+        if (target <= 1 && /[^\d.,\s]/.test(suf)) {
+          el.textContent = raw;
+          return;
+        }
+        var dec = (numStr.split('.')[1] || '').length;
+        var hadComma = numStr.indexOf(',') > -1;
+        function grp(s) {
+          return hadComma ? s.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : s;
+        }
+        var dur = 850,
+          t0 = null;
+        function step(ts) {
+          if (t0 === null) t0 = ts;
+          var p = Math.min((ts - t0) / dur, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = pre + grp(fmt(target * eased, dec)) + suf;
+          if (p < 1) requestAnimationFrame(step);
+          else el.textContent = pre + grp(fmt(target, dec)) + suf;
+        }
+        requestAnimationFrame(step);
+      }
+      var cObs = new IntersectionObserver(
+        function (entries, obs) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              runCount(e.target);
+              obs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.6 }
+      );
+      document.querySelectorAll('[data-countup]').forEach(function (el) {
+        cObs.observe(el);
+      });
+
+      // 4) Benchmark result-grid fill
+      var bObs = new IntersectionObserver(
+        function (entries, obs) {
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            e.target.querySelectorAll('[data-fill]').forEach(function (c, i) {
+              setTimeout(function () {
+                c.classList.add('is-filled');
+              }, i * 55);
+            });
+            obs.unobserve(e.target);
+          });
+        },
+        { threshold: 0.4 }
+      );
+      document.querySelectorAll('[data-bench-grid]').forEach(function (el) {
+        bObs.observe(el);
+      });
+    });
+  })();
+</script>

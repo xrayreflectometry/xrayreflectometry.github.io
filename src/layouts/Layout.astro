@@ -1,0 +1,61 @@
+---
+import '~/assets/styles/tailwind.css';
+
+import { I18N, SITE } from 'astrowind:config';
+
+import CommonMeta from '~/components/common/CommonMeta.astro';
+import Favicons from '~/components/Favicons.astro';
+import CustomStyles from '~/components/CustomStyles.astro';
+import ApplyColorMode from '~/components/common/ApplyColorMode.astro';
+import Metadata from '~/components/common/Metadata.astro';
+import SiteVerification from '~/components/common/SiteVerification.astro';
+import BasicScripts from '~/components/common/BasicScripts.astro';
+
+import type { MetaData as MetaDataType } from '~/types';
+
+export interface Props {
+  metadata?: MetaDataType;
+  lang?: string;
+}
+
+const { metadata = {}, lang } = Astro.props;
+const { language, textDirection } = I18N;
+
+const base = (SITE?.site || '').replace(/\/$/, '');
+const enHref = base || '/';
+const koHref = `${base}/ko`;
+const currentLang = lang ?? language;
+const ogLocale = currentLang === 'ko' ? 'ko_KR' : 'en_US';
+const ogAlt = currentLang === 'ko' ? 'en_US' : 'ko_KR';
+const indexable = metadata?.robots?.index !== false;
+---
+
+<!doctype html>
+<html lang={lang ?? language} dir={textDirection} class="2xl:text-[20px]">
+  <head>
+    <CommonMeta />
+    <Favicons />
+    <CustomStyles />
+    <ApplyColorMode />
+    <Metadata {...metadata} />
+    <SiteVerification />
+
+    {
+      indexable && (
+        <>
+          <link rel="alternate" hreflang="en" href={enHref} />
+          <link rel="alternate" hreflang="ko" href={koHref} />
+          <link rel="alternate" hreflang="x-default" href={enHref} />
+          <meta property="og:locale" content={ogLocale} />
+          <meta property="og:locale:alternate" content={ogAlt} />
+        </>
+      )
+    }
+  </head>
+
+  <body class="antialiased text-default bg-page tracking-tight">
+    <slot />
+
+    <BasicScripts />
+  </body>
+</html>

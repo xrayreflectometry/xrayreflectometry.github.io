@@ -1,0 +1,20 @@
+---
+// Korean webfont imported at page level so it ships only in the /ko CSS bundle
+import '@fontsource/ibm-plex-sans-kr/400.css';
+import '@fontsource/ibm-plex-sans-kr/500.css';
+import '@fontsource/ibm-plex-sans-kr/700.css';
+
+import PageLayout from '~/layouts/PageLayout.astro';
+import HomeSections from '~/components/HomeSections.astro';
+import { ui } from '~/i18n';
+
+const metadata = {
+  title: ui.ko.meta.title,
+  description: ui.ko.meta.description,
+  ignoreTitleTemplate: true,
+};
+---
+
+<PageLayout metadata={metadata} lang="ko">
+  <HomeSections lang="ko" />
+</PageLayout>

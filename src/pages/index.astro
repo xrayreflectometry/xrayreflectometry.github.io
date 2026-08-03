@@ -1,0 +1,15 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import HomeSections from '~/components/HomeSections.astro';
+import { ui } from '~/i18n';
+
+const metadata = {
+  title: ui.en.meta.title,
+  description: ui.en.meta.description,
+  ignoreTitleTemplate: true,
+};
+---
+
+<PageLayout metadata={metadata} lang="en">
+  <HomeSections lang="en" />
+</PageLayout>

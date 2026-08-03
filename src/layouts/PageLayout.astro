@@ -1,0 +1,104 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/widgets/Header.astro';
+
+import { getHeaderData, getFooterData } from '~/navigation';
+import { ui, getHomePath, type Lang } from '~/i18n';
+
+import type { MetaData } from '~/types';
+
+export interface Props {
+  metadata?: MetaData;
+  lang?: Lang;
+}
+
+const { metadata, lang = 'en' } = Astro.props;
+const t = ui[lang];
+const indexable = metadata?.robots?.index !== false;
+const headerData = getHeaderData(lang);
+const footerData = getFooterData(lang);
+const email = 'xray1006.rtx3090@gmail.com';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'ReflexAuto',
+    applicationCategory: 'ScientificApplication',
+    operatingSystem: 'Windows',
+    description: metadata?.description || t.meta.description,
+    offers: t.pricing.prices.map((p) => ({
+      '@type': 'Offer',
+      price: String(p.price),
+      priceCurrency: 'USD',
+      name: p.title,
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: t.faq.items.map((f) => ({
+      '@type': 'Question',
+      name: f.title,
+      acceptedAnswer: { '@type': 'Answer', text: f.description },
+    })),
+  },
+];
+---
+
+<Layout metadata={metadata} lang={lang}>
+  <a
+    href="#main"
+    class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-3 focus:left-3 focus:bg-page focus:text-primary focus:px-4 focus:py-2 focus:rounded focus:border focus:border-primary focus:shadow-lg"
+    >{t.skip}</a
+  >
+  <slot name="header">
+    <Header {...headerData} lang={lang} isSticky showToggleTheme />
+  </slot>
+  <main id="main" tabindex="-1" class="focus:outline-none">
+    <slot />
+  </main>
+
+  <footer class="border-t border-gray-200 dark:border-slate-800">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 py-10 md:py-12">
+      <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
+        <div class="md:col-span-2">
+          <a
+            href={getHomePath(lang)}
+            class="font-heading text-lg font-bold tracking-tight text-heading dark:text-white">Reflex<span
+              class="text-primary">Auto</span
+            ></a
+          >
+          <p class="mt-3 text-sm text-muted max-w-xs" set:html={footerData.footNote} />
+        </div>
+        {
+          footerData.links.map((col) => (
+            <div>
+              <div class="font-mono text-[11px] tracking-[0.18em] uppercase text-muted mb-3">{col.title}</div>
+              <ul class="space-y-2">
+                {col.links.map((l) => (
+                  <li>
+                    <a
+                      href={l.href}
+                      class="inline-block py-0.5 text-sm text-muted hover:text-primary dark:hover:text-white transition"
+                    >
+                      {l.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+      <div
+        class="mt-10 pt-6 border-t border-gray-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-muted"
+      >
+        <span>© 2026 ReflexAuto</span>
+        <a href={`mailto:${email}`} class="font-mono hover:text-primary dark:hover:text-white transition">{email}</a>
+      </div>
+    </div>
+  </footer>
+
+  {indexable && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />}
+</Layout>
