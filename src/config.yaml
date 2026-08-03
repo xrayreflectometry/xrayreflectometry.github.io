@@ -1,6 +1,6 @@
 site:
   name: ReflexAuto
-  site: 'https://reflexauto.io'
+  site: 'https://xrayreflectometry.github.io'
   base: '/'
   trailingSlash: false
 
