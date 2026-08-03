@@ -29,13 +29,13 @@ export const ui = {
       how: 'See how it works',
     },
     imageAlt: {
-      hero: 'ReflexAuto window showing measured XRR data with the automatic single-film fit overlaid (FOM 0.022) and the recovered SLD depth profile',
+      hero: 'ReflexAuto window showing measured XRR data with the automatic single-film fit overlaid (FOM 0.01) and the recovered SLD depth profile',
       hard: 'Recovered SLD depth profile of a 16-layer superlattice, fit automatically to FOM 0.0196',
-      bench: 'Measured data and ReflexAuto automatic fit for a 250 Å film with the residual panel below, FOM 0.022',
+      bench: 'Measured data and ReflexAuto automatic fit for a 250 Å film with the residual panel below, FOM 0.01',
     },
     stats: [
       { amount: '10 s', title: 'From raw scan to a converged fit' },
-      { amount: '0.022', title: 'Figure-of-merit on a 250 Å single film' },
+      { amount: '0.01', title: 'Figure-of-merit on a 250 Å single film' },
       { amount: '16', title: 'Layers auto-resolved in a superlattice' },
       { amount: '1-click', title: 'No manual parameter tuning needed' },
     ],
@@ -48,7 +48,7 @@ export const ui = {
         {
           title: 'One-click automatic fit',
           description:
-            'Press Run. ReflexAuto locates the critical edge, infers the layer count, and refines thickness, density and roughness on its own. A 250 Å film converges to FOM 0.022 in about ten seconds.',
+            'Press Run. ReflexAuto locates the critical edge, infers the layer count, and refines thickness, density and roughness on its own. A 250 Å film converges to FOM 0.01 in about ten seconds.',
         },
         {
           title: 'Superlattice & free-multilayer',
@@ -133,7 +133,7 @@ export const ui = {
         {
           title: 'FOM you can report',
           description:
-            'Fit quality is the mean absolute residual in log-reflectivity (mean |Δlog₁₀R|). Lower is better; the single film above sits at 0.022, the 16-layer stack at 0.0196.',
+            'Fit quality is the mean absolute residual in log-reflectivity (mean |Δlog₁₀R|). Lower is better; the single film above sits at 0.01, the 16-layer stack at 0.0196.',
         },
         {
           title: 'Reproducible, not lucky',
@@ -255,13 +255,13 @@ export const ui = {
       how: '사용 방법 보기',
     },
     imageAlt: {
-      hero: 'ReflexAuto 화면, 측정한 XRR 데이터에 자동 단일막 피팅(FOM 0.022)이 겹쳐지고 복원된 SLD 깊이 프로파일이 함께 표시됩니다',
+      hero: 'ReflexAuto 화면, 측정한 XRR 데이터에 자동 단일막 피팅(FOM 0.01)이 겹쳐지고 복원된 SLD 깊이 프로파일이 함께 표시됩니다',
       hard: '16층 초격자의 SLD 깊이 프로파일, FOM 0.0196으로 자동 복원한 결과입니다',
-      bench: '250 Å 박막의 측정 데이터와 ReflexAuto 자동 피팅, 아래에 잔차 패널이 함께 표시됩니다(FOM 0.022)',
+      bench: '250 Å 박막의 측정 데이터와 ReflexAuto 자동 피팅, 아래에 잔차 패널이 함께 표시됩니다(FOM 0.01)',
     },
     stats: [
       { amount: '10초', title: '스캔 불러오기부터 피팅 완료까지' },
-      { amount: '0.022', title: '250 Å 단일막 적합도(FOM)' },
+      { amount: '0.01', title: '250 Å 단일막 적합도(FOM)' },
       { amount: '16', title: '자동으로 찾아낸 초격자 층 수' },
       { amount: '원클릭', title: '파라미터 수동 조정 불필요' },
     ],
@@ -273,7 +273,7 @@ export const ui = {
         {
           title: '원클릭 자동 피팅',
           description:
-            'Run 버튼만 누르면 임계각을 찾고 층 개수를 파악해 두께와 밀도, 거칠기까지 알아서 맞추고, 250 Å 박막은 10초 만에 FOM 0.022로 수렴합니다',
+            'Run 버튼만 누르면 임계각을 찾고 층 개수를 파악해 두께와 밀도, 거칠기까지 알아서 맞추고, 250 Å 박막은 10초 만에 FOM 0.01로 수렴합니다',
         },
         {
           title: '초격자와 자유 다층',
@@ -350,7 +350,7 @@ export const ui = {
         {
           title: '논문에 그대로 쓰는 FOM',
           description:
-            '적합도(FOM)는 로그 반사율의 평균 절대 잔차(mean |Δlog₁₀R|)로 나타내며 값이 낮을수록 좋은데, 위 단일막은 0.022, 16층 스택은 0.0196입니다',
+            '적합도(FOM)는 로그 반사율의 평균 절대 잔차(mean |Δlog₁₀R|)로 나타내며 값이 낮을수록 좋은데, 위 단일막은 0.01, 16층 스택은 0.0196입니다',
         },
         {
           title: '운이 아니라 재현입니다',
