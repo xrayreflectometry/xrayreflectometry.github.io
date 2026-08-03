@@ -4,7 +4,7 @@ $ErrorActionPreference = "Stop"
 $installDir = "$env:LOCALAPPDATA\ReflexAuto"
 $exeUrl = "https://github.com/xrayreflectometry/xrayreflectometry.github.io/releases/download/v1.0.0/ReflexAuto.exe"
 $exePath = "$installDir\ReflexAuto.exe"
-$expectedHash = "sha256:8dac511761cee4a95a7a5554667abf60f510a311dee8acb02cce31074392b060"
+$expectedHash = "8dac511761cee4a95a7a5554667abf60f510a311dee8acb02cce31074392b060"
 
 Write-Host "Installing ReflexAuto..." -ForegroundColor Cyan
 New-Item -ItemType Directory -Force -Path $installDir | Out-Null
