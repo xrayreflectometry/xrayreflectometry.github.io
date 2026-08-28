@@ -59,7 +59,6 @@ The repository's Pages source must be set to **GitHub Actions** (Settings → Pa
 
 To serve the site from a custom domain instead, add a `public/CNAME` file containing the domain, update `site.site` in
 `src/config.yaml` to match, and point the domain's DNS at GitHub Pages.
-
 ## License
 
 Built on the [AstroWind](https://github.com/arthelokyo/astrowind) template, MIT licensed — see [LICENSE.md](./LICENSE.md).
